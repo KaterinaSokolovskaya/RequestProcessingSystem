@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Admin</title>
+</head>
+<body>
+<form th:action="@{/admin}" th:method="post" th:object="${updateStatus}">
+    <label for="id">
+        <span>ID:</span>
+        <input type="number" id="id" th:field="*{id}">
+    </label>
+    <br>
+    <label for="status">Status:</label>
+    <select name="status" id="status" th:field="*{status}">
+        <option value=""></option>
+        <option th:each="status : ${allStatuses}"
+                th:value="${status}"
+                th:text="${status}">
+        </option>
+    </select>
+    <br>
+    <input type="hidden" th:value="${userId}" id="userId" name="userId">
+    <input type="submit" value="Update">
+</form>
+
+<div>
+    <table class="table table-sm table-light table-bordered" style="width: 500px;">
+        <tr>
+            <th>Requests</th>
+            <th>Completed requests</th>
+            <th>Denied requests</th>
+        </tr>
+        <tr>
+            <td th:text="${report.allRequests}"></td>
+            <td th:text="${report.completedRequests}"></td>
+            <td th:text="${report.deniedRequests}"></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <table class="table table-sm table-light table-bordered" style="width: 500px;">
+        <tr>
+            <th>ID</th>
+            <th>Request</th>
+            <th>Bid</th>
+            <th>Due Date</th>
+            <th>Client</th>
+            <th>Status</th>
+        </tr>
+        <tr th:each="request: ${requests}">
+            <td th:text="${request.id}"></td>
+            <td th:text="${request.request}"></td>
+            <td th:text="${request.bid}"></td>
+            <td th:text="${request.date}"></td>
+            <td th:text="${request.userName}"></td>
+            <td th:text="${request.status}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

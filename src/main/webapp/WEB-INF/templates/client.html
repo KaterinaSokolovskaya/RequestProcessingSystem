@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Client</title>
+</head>
+<body>
+<form th:action="@{/client(id=${userId})}" th:method="post" th:object="${addRequest}">
+    <label for="request">
+        <span>Request:</span>
+        <input type="text" id="request" th:field="*{request}">
+    </label>
+    <br>
+    <label for="bid">
+        <span>Bid:</span>
+        <input type="text" id="bid" th:field="*{bid}">
+    </label>
+    <br>
+    <label for="date">
+        <span>Due date:</span>
+        <input type="date" id="date" th:field="*{date}">
+    </label>
+    <br>
+    <input type="hidden" th:value="${userId}" id="userId" name="userId">
+    <input type="submit" value="Add Request">
+</form>
+<div>
+    <table class="table table-sm table-light table-bordered" style="width: 500px;">
+        <tr>
+            <th>ID</th>
+            <th>Request</th>
+            <th>Bid</th>
+            <th>Due Date</th>
+            <th>Status</th>
+        </tr>
+        <tr th:each="request: ${requests}">
+            <td th:text="${request.id}"></td>
+            <td th:text="${request.request}"></td>
+            <td th:text="${request.bid}"></td>
+            <td th:text="${request.date}"></td>
+            <td th:text="${request.status}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
